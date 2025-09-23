@@ -4,13 +4,19 @@ import Message from './components/Message'
 import ChatBox from './components/ChatBox'
 import Credits from './pages/Credits'
 import Community from './pages/Community'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import { assets } from './assets/assets'
+import './assets/prism.css'
+import Loading from './pages/Loading'
 
 const App = () => {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { pathname } = useLocation()
 
+  if (pathname === '/loading') {
+    return <Loading />
+  }
   return (
     <>
 
