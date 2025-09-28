@@ -13,6 +13,8 @@ import bin_icon from "./bin_icon.svg";
 import logout_icon from "./logout_icon.svg";
 import diamond_icon from "./diamond_icon.svg";
 import gallery_icon from "./gallery_icon.svg";
+import gptImage1 from "./gptImage1.png";
+import gptImage2 from "./gptImage2.png";
 
 import ai_image1 from "./ai_image1.jpg";
 import ai_image2 from "./ai_image2.jpg";
@@ -25,7 +27,8 @@ import ai_image8 from "./ai_image8.jpg";
 import ai_image9 from "./ai_image9.jpg";
 import ai_image10 from "./ai_image10.jpg";
 import ai_image11 from "./ai_image11.jpg";
-import ai_image12 from "./ai_image12.jpg";
+// import ai_image12 from "./ai_image12.jpg";
+
 
 export const assets = {
     logo,
@@ -42,7 +45,8 @@ export const assets = {
     logout_icon,
     logo_full_dark,
     diamond_icon,
-    gallery_icon
+    gallery_icon,
+    gptImage1, gptImage2
 };
 
 export const dummyUserData = {
@@ -263,7 +267,7 @@ export const dummyChats = [
                 "content": ai_image7,
                 "timestamp": 1755164001928,
             }
-            
+
         ],
         "createdAt": "2025-08-13T17:29:52.421Z",
         "updatedAt": "2025-08-14T09:39:19.046Z",
