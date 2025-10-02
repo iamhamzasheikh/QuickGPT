@@ -1,4 +1,4 @@
-import Transaction from "../models/Transaction"
+import Transaction from "../models/Transaction.js"
 import Stripe from "stripe"
 
 
@@ -56,7 +56,8 @@ export const purchasePlan = async (req, res) => {
     try {
 
         const { planId } = req.body;
-        const userId = req.body;
+        const userId = req.user._id;
+
         const plan = plans.find(plan => plan._id === planId);
 
         if (!plan) {
@@ -74,22 +75,18 @@ export const purchasePlan = async (req, res) => {
         });
 
 
-        const { origin } = req.header;
+        // const { origin } = req.header;
+        const origin = req.headers.origin
+
 
 
         const session = await stripe.checkout.sessions.create({
-
             line_items: [
                 {
-                    price: {
+                    price_data: {
                         currency: "usd",
                         unit_amount: plan.price * 100,
-
-                        product_data: {
-                            name: plan.name,
-
-                        }
-
+                        product_data: { name: plan.name },
                     },
                     quantity: 1,
                 },
@@ -97,10 +94,9 @@ export const purchasePlan = async (req, res) => {
             mode: 'payment',
             success_url: `${origin}/loading`,
             cancel_url: `${origin}`,
-            metadata: { transaction: transaction._id.toString(), appId: 'Quick GPT' },
-            expires_at: Math.floor(Date.now() / 1000) + 30 * 60,  // expire after 30 mints
+            metadata: { transaction: transaction._id.toString(), appId: 'quickgpt' },
+            expires_at: Math.floor(Date.now() / 1000) + 30 * 60,
         });
-
         return res.json({ success: true, url: session.url, message: 'Payment Successful' })
 
 
