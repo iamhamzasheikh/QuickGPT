@@ -25,7 +25,22 @@ const transactionSchema = new mongoose.Schema({
     isPaid: {
         type: Boolean,
         default: false
-    }
+    },
+
+    userName: {
+        type: String,
+        required: true,
+    },
+
+    userEmail: {
+        type: String,
+        required: true,
+    },
+
+    totalCreditsAfterPurchase: {
+        type: Number,
+        default: 0, // will be updated after payment succeeds
+    },
 
 }, { timestamps: true })
 

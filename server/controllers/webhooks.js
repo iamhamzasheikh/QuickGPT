@@ -47,11 +47,27 @@ export const stripeWebHooks = async (req, res) => {
                         { $inc: { credits: transaction.credits } }
                     )
 
+
+                    // ✅ Get the user from transaction.userId
+                    const user = await User.findById(transaction.userId);
+
+                    if (!user) {
+                        console.error("User not found:", transaction.userId);
+                        return res.json({ received: true, message: "User not found, skipping credit update" });
+                    }
+
+
+                    // Add credits to user
+                    user.credits += transaction.credits;
+                    await user.save();
+
                     //update credit payment status 
 
                     transaction.isPaid = true;
-
+                    transaction.userName = user.name;
+                    transaction.userEmail = user.email;
                     await transaction.save();
+
 
                 } else {
                     return res.json({ received: true, message: "ignored event: invalid app" })
